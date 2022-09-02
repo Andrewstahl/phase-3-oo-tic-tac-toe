@@ -83,6 +83,7 @@ class TicTacToe
       index = input_to_index(position.to_i)
       if valid_move?(index)
         move(index, current_player)
+        self.display_board
       else
         puts "Invalid"
         self.turn
@@ -103,7 +104,11 @@ class TicTacToe
       pos1, pos2, pos3 = combination
       # If each of these positions have the same value,
       # that means we have a winning combination
-      if [
+      # First, check to see if the first element is blank.
+      # If all of the elements are blank, they would show up
+      # that they are all the same so this is going to 
+      # confirm that all of the unique values are not blank.
+      if self.board[pos1] != " " && [
         self.board[pos1], 
         self.board[pos2], 
         self.board[pos3]
@@ -116,7 +121,7 @@ class TicTacToe
         ]
       end
     end
-    binding.pry
+    # binding.pry
     won
   end
 
@@ -125,11 +130,11 @@ class TicTacToe
   end
 
   def draw?
-    self.full? && !self.won?
+    self.full? && !self.won?.nil?
   end
 
   def over?
-    self.full? || !self.won?
+    self.full? || !self.won?.nil?
   end
 
   def winner
